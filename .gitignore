@@ -2,3 +2,4 @@ __pycache__
 blist.txt
 logs.txt
 num.txt
+config.py
