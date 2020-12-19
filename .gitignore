@@ -1,5 +1,6 @@
-__pycache__
+__pycache__/
 blist.txt
 logs.txt
 num.txt
 config.py
+abc.py
