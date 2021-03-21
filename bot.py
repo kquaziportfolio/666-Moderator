@@ -4,6 +4,7 @@ import time
 from datetime import datetime as dt
 
 import discord
+import lavalink
 import pymongo as pym
 from discord.ext.commands import *
 from jishaku.help_command import *
@@ -93,6 +94,7 @@ class DarkBot(Bot):
         self.logger = DataLogger("logs.txt")
         self.logger.tempdata["mutes"] = {}
         self.games = ["with your life", "VALORANT as Yo Mamma"]
+        self.musicbackend = None
 
     async def on_ready(self):
         status = "Planet 666 | discord.gg/8GMA2M3 | 6!help"
@@ -119,15 +121,6 @@ class DarkBot(Bot):
             and msg.content == "thou shalt be cast in flame"
         ):
             exit()
-        if msg.content.startswith("6!") and False:
-            await ctx.send(
-                "This bot is on leave, cause Star and the other admins are undermining my campaign"
-            )
-            await ctx.send(
-                "If ur star, why would u do this? cause i made a joke calling ag a poop in a cup? srsly? smh."
-            )
-            await ctx.send("If ur AG, you proved my point")
-            return
         for i in self.bad_words:
             if i in "".join(msg.content.split()).lower() and ctx.author.bot == False:
                 await msg.delete()
@@ -151,6 +144,13 @@ class DarkBot(Bot):
             print(e)
 
     async def logout(self):
+        for i in self.cogs:
+            try:
+                await self.get_cog(i).logout()
+            except AttributeError:
+                print("Couldn't logout cog", i)
+            except Exception as e:
+                print("Exception", e, "raised while logging out")
         await super().logout()
 
     async def on_command_error(self, ctx, error):
@@ -184,11 +184,17 @@ class DarkBot(Bot):
             self.logger.update()
             await asyncio.sleep(10)
 
+    @property
+    def connection(self):
+        return self._connection
+
 
 client = DarkBot(
-    intents=intents, prefix=when_mentioned_or("6!"), help_command=DefaultPaginatorHelp()
+    intents=intents,
+    prefix=when_mentioned_or("6!"),
+    help_command=commands.MinimalHelpCommand(),
 )
-nocogs = ["secret"]
+nocogs = ["secret", "hep"]
 for file in os.listdir("cogs"):
     if file.endswith(".py") and not (file[:-3] in nocogs):
         name = file[:-3]
@@ -203,4 +209,4 @@ try:
 except:
     print("Bye!")
     raise
-    exit()
+    # exit()
