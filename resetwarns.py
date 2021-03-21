@@ -1,1 +1,2 @@
-with open("num.txt","w") as f: f.write("0")
+with open("num.txt", "w") as f:
+    f.write("0")

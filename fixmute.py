@@ -1,3 +1,4 @@
 import pymongo
-a=pymongo.MongoClient()
-a["BotLogger"]["random"].insert_one({"mutes":{}})
+
+a = pymongo.MongoClient()
+a["BotLogger"]["random"].insert_one({"mutes": {}})
