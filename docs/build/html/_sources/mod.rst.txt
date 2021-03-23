@@ -1,4 +1,0 @@
-suck my dick
-============
-.. automodule:: cogs.mod
-    :members:
