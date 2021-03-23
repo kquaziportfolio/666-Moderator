@@ -1,5 +1,6 @@
 import asyncio
 import os
+import pathlib
 import time
 from datetime import datetime as dt
 
@@ -144,13 +145,7 @@ class DarkBot(Bot):
             print(e)
 
     async def logout(self):
-        for i in self.cogs:
-            try:
-                await self.get_cog(i).logout()
-            except AttributeError:
-                print("Couldn't logout cog", i)
-            except Exception as e:
-                print("Exception", e, "raised while logging out")
+        await self.get_cog("Music").logout()
         await super().logout()
 
     async def on_command_error(self, ctx, error):
@@ -189,24 +184,25 @@ class DarkBot(Bot):
         return self._connection
 
 
-client = DarkBot(
-    intents=intents,
-    prefix=when_mentioned_or("6!"),
-    help_command=commands.MinimalHelpCommand(),
-)
-nocogs = ["secret", "hep"]
-for file in os.listdir("cogs"):
-    if file.endswith(".py") and not (file[:-3] in nocogs):
-        name = file[:-3]
-        try:
-            client.load_extension(f"cogs.{name}")
-            print(f"Loaded cog {name}")
-        except Exception as e:
-            print(f"Failed to load cog {name} due to error\n", e)
-client.load_extension("jishaku")
-try:
-    client.run(config.token)
-except:
-    print("Bye!")
-    raise
-    # exit()
+if __name__ == "__main__":
+    client = DarkBot(
+        intents=intents,
+        prefix=when_mentioned_or("6!"),
+        help_command=commands.MinimalHelpCommand(),
+    )
+    nocogs = ["secret"]
+    for file in os.listdir("cogs"):
+        if file.endswith(".py") and not (file[:-3] in nocogs):
+            name = file[:-3]
+            try:
+                client.load_extension(f"cogs.{name}")
+                print(f"Loaded cog {name}")
+            except Exception as e:
+                print(f"Failed to load cog {name} due to error\n", e)
+    client.load_extension("jishaku")
+    try:
+        client.run(config.token)
+    except:
+        print("Bye!")
+        raise
+        # exit()

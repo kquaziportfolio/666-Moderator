@@ -1,21 +1,17 @@
-import asyncio
-import json
-import time
-
 import discord
 from discord.ext import commands
-from jishaku.help_command import *
-
-
-class Help(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
-        self.og = self.bot.help_command
-        self.bot.help_command = commands.MinimalHelpCommand()
-        self.bot.help_command.cog = self
 
 
 class Admin(commands.Cog):
+    """
+    Cog for owner-only admin commands.
+    Methods:
+        blacklist(ctx, member):
+            Blacklists a user from using bot commands\n
+            ctx (commands.Context) - Context
+            member (discord.Member) - User to blacklist
+    """
+
     def __init__(self, bot):
         self.bot = bot
 
@@ -28,5 +24,7 @@ class Admin(commands.Cog):
 
 
 def setup(bot):
-    # bot.add_cog(Help(bot))
+    """
+    Setup the cog
+    """
     bot.add_cog(Admin(bot))

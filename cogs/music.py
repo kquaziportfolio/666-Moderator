@@ -6,11 +6,34 @@ from bot import DarkBot
 
 
 class Music(commands.Cog):
+    """
+    Cog for music related commands
+    Methods:
+        music():
+            Main group for music commands\n
+        join(ctx):
+            Joins users channel\n
+            ctx (commands.Context) - Context\n
+        leave(ctx):
+            Leaves channel\n
+            ctx (commands.Context) - Context\n
+        play(ctx, query):
+            Searches YouTube for query, returns top 10 selections, allows user to choose which track, and plays the
+            song.\n
+            ctx (commands.Context) - Context\n
+            query (str) - Query\n
+    """
+
     def __init__(self, bot: DarkBot):
         self.bot = bot
 
     @commands.Cog.listener()
     async def on_ready(self):
+        """
+        on_ready():
+            Called when bot is ready to serve content. This confirms that self.bot.user exists.
+            Initializes the lavalink client.
+        """
         self.bot.musicbackend = lavalink.Client(self.bot.user.id)
         self.bot.musicbackend.add_node("localhost", 2463, "testing", "na", "music-node")
         self.bot.add_listener(
@@ -18,13 +41,6 @@ class Music(commands.Cog):
         )
         self.bot.musicbackend.add_event_hook(self.track_hook)
         print("Music cog is fully loaded")
-
-    async def logout(self):
-        for i in self.bot.musicbackend.player_manager.find_all():
-            try:
-                await self.bot.musicbackend.player_manager.remove(i.guild_id)
-            except Exception:
-                pass
 
     @commands.group()
     async def music(self, ctx):
@@ -79,6 +95,9 @@ class Music(commands.Cog):
             await player.play()
 
     async def connect_to(self, guild_id: int, channel_id: str):
+        """
+        Connects to the channel\n
+        """
         ws = self.bot.connection._get_websocket(
             guild_id
         )  # Not supposed to do, but no clue the proper way to get
@@ -86,10 +105,16 @@ class Music(commands.Cog):
         await ws.voice_state(str(guild_id), channel_id)
 
     async def track_hook(self, event):
+        """
+        Leaves channel when queue is empty
+        """
         if isinstance(event, lavalink.events.QueueEndEvent):
             guild_id = int(event.player.guild_id)
             await self.connect_to(guild_id, None)
 
 
 def setup(bot):
+    """
+    Setup the cog
+    """
     bot.add_cog(Music(bot))

@@ -16,3 +16,7 @@ jishaku == 1.19.1.200
 # D:\dbots\666 Mod\bot.py: 9
 # D:\dbots\666 Mod\fixmute.py: 1
 pymongo == 3.11.0
+
+Sphinx==3.5.3
+rst2pdf==0.98
+karma_sphinx_theme==0.0.8
