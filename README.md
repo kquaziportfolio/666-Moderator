@@ -1,4 +1,4 @@
-# 666-Moderator
+# 666 Moderator
 This is the GitHub for a Discord bot that I am working on for the Planet 666 Discord server. This project is built ontop of the <a href="https://discordpy.readthedocs.io/en/latest/">Discord.py</a>
 Python project. It uses the Python await/async syntax to route commands to "cogs", which are classes that contain commands and event triggers using the Discord API. The entrypoint is
 bot.py, but it requires:
@@ -7,3 +7,7 @@ bot.py, but it requires:
 <li>A file named config.py that has a variable named token with the Discord token</li>
 <li>A MongoDB database</li></ul><br>
 The code may not be reproducable because it contains specific ID's related to the specific server the project was designed for.
+
+ReadTheDocs is currently broken because it doesn't recognize the stylistic
+changes I had to make to register commands in cogs, but the Sphinx documentation
+in ./docs/ is working.
