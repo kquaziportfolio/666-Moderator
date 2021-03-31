@@ -36,9 +36,7 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.coverage",
     "sphinx.ext.napoleon",
-    "rst2pdf.pdfbuilder",
 ]
-pdf_documents = [("index", "rst2pdf", "666 Moderator Documentation", "Kairan Quazi")]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]

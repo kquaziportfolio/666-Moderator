@@ -141,11 +141,12 @@ class DarkBot(Bot):
             return
         try:
             await self.process_commands(msg)
-        except Exception as e:
-            print(e)
+        except Exception as ex:
+            print(ex)
 
     async def logout(self):
-        await self.get_cog("Music").logout()
+        if (musiccog := self.get_cog("Music")) is not None:
+            await musiccog.logout()
         await super().logout()
 
     async def on_command_error(self, ctx, error):

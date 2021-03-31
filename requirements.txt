@@ -18,5 +18,5 @@ jishaku == 1.19.1.200
 pymongo == 3.11.0
 
 Sphinx==3.5.3
-rst2pdf==0.98
 karma_sphinx_theme==0.0.8
+lavalink==3.1.4
