@@ -1,3 +1,6 @@
+# EDIT 2:
+I'm switching to Novus, so dev is going to continue.
+
 # EDIT:
 Discord.py (the framework that I use for bot development) is shutting down development, and I personally disagree with Discord on many changes to the APIs and structure of Discord. Due to these reasons, I will no longer develop 666 Moderator, KairanBot (defunct for a while now), or any other Discord bots (except the SCU Discord Bot).
 
